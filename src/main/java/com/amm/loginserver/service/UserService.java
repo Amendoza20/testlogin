@@ -17,7 +17,7 @@ public class UserService {
         throw new Exception("User already exists");
     }
 
-    private User findUserByUserName(String username){
+    public User findUserByUsername(String username){
         return repository.findUserByUsername(username);
     }
 
