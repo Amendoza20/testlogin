@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class UserController {
@@ -19,11 +20,13 @@ public class UserController {
         return new ResponseEntity<>("Hello World", HttpStatus.OK);
     }
 
-    @GetMapping("/user")
+    @PostMapping("/login")
+    public ResponseEntity<User> addUser(@Valid @RequestBody User user) throws Exception {
+        return new ResponseEntity<>(service.addUser(user),HttpStatus.CREATED);
+    }
+
+    @GetMapping("/login")
     public ResponseEntity<User> findByUsername(@PathVariable String username){
         return new ResponseEntity<>(service.findUserByUsername(username), HttpStatus.OK);
     }
-
-
-
 }
