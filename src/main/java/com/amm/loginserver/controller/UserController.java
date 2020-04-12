@@ -21,8 +21,9 @@ public class UserController {
         return new ResponseEntity<>("Hello World", HttpStatus.OK);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login/newuser")
     public ResponseEntity<User> addUser(@Valid @RequestBody User user) throws Exception {
+        String username = user.getUsername();
         return new ResponseEntity<>(service.addUser(user),HttpStatus.CREATED);
     }
 

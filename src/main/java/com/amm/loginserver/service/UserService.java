@@ -12,7 +12,12 @@ public class UserService {
 
     public User addUser(User user) throws Exception{
         if(repository.findUserByUsername(user.getUsername()) ==null){
-            return repository.save(user);
+           user.setUsername(user.getUsername());
+           user.setFirstName(user.getFirstName());
+           user.setLastName(user.getLastName());
+           user.setEmail(user.getEmail());
+           user.setPassword(user.getPassword());
+           return repository.save(user);
         }
         throw new Exception("User already exists");
     }
@@ -22,7 +27,7 @@ public class UserService {
     }
 
     public User findUserById(Long id){
-        return repository.findUserById(id);
+        return repository.getOne(id);
     }
 
     public Boolean deleteUser(Long id){
