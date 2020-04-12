@@ -21,6 +21,19 @@ public class UserService {
         return repository.findUserByUsername(username);
     }
 
+    public User findUserById(Long id){
+        return repository.findUserById(id);
+    }
+
+    public Boolean deleteUser(Long id){
+        User user = findUserById(id);
+        if(user != null){
+            repository.delete(user);
+            return true;
+        }
+        return false;
+    }
+
 
 }
 

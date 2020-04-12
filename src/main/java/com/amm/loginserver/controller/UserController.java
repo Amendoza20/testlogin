@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+
 @Controller
 public class UserController {
     @Autowired
@@ -28,5 +29,10 @@ public class UserController {
     @GetMapping("/login")
     public ResponseEntity<User> findByUsername(@PathVariable String username){
         return new ResponseEntity<>(service.findUserByUsername(username), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/login")
+    public ResponseEntity<Boolean> deleteUser(@RequestParam Long id){
+        return new ResponseEntity<>(service.deleteUser(id), HttpStatus.OK);
     }
 }
