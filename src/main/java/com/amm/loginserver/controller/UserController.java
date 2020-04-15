@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-
+@CrossOrigin(origins = "\"http://localhost:4200/newuser\"")
 @Controller
 public class UserController {
     @Autowired
@@ -21,18 +21,18 @@ public class UserController {
         return new ResponseEntity<>("Hello World", HttpStatus.OK);
     }
 
-    @PostMapping("/login/newuser")
+    @PostMapping("/newuser")
     public ResponseEntity<User> addUser(@Valid @RequestBody User user) throws Exception {
         String username = user.getUsername();
         return new ResponseEntity<>(service.addUser(user),HttpStatus.CREATED);
     }
 
-    @GetMapping("/login")
+    @GetMapping("/newuser")
     public ResponseEntity<User> findByUsername(@PathVariable String username){
         return new ResponseEntity<>(service.findUserByUsername(username), HttpStatus.OK);
     }
 
-    @DeleteMapping("/login")
+    @DeleteMapping("/newuser")
     public ResponseEntity<Boolean> deleteUser(@RequestParam Long id){
         return new ResponseEntity<>(service.deleteUser(id), HttpStatus.OK);
     }
