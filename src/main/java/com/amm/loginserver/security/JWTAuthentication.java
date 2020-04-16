@@ -2,6 +2,7 @@ package com.amm.loginserver.security;
 
 import com.amm.loginserver.service.JWTService;
 import com.amm.loginserver.service.UserDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,17 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class JWTAuthentication extends OncePerRequestFilter {
-
+    @Autowired
     JWTService jwtService;
+    @Autowired
     UserDetailService userDetailService;
 
-   public JWTAuthentication(JWTService jwtService, UserDetailService userDetailService){
-        this.jwtService = jwtService;
-        this.userDetailService = userDetailService;
-    }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse reponse, FilterChain filterChain)throws ServletException, IOException{
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)throws ServletException, IOException{
        String jwt = getJwtFromRequest(request);
        try{
            if(StringUtils.hasText(jwt) && jwtService.validateToken(jwt)){
@@ -41,7 +39,7 @@ public class JWTAuthentication extends OncePerRequestFilter {
        }catch (Exception e){
            e.printStackTrace();
        }
-       filterChain.doFilter(request, reponse);
+       filterChain.doFilter(request, response);
     }
 
     private String getJwtFromRequest(HttpServletRequest request){
